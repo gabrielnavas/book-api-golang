@@ -6,15 +6,15 @@ import (
 	"time"
 )
 
-func makeLongString(howLong int) string {
-	str := ""
-	for i := 0; i < howLong; i++ {
-		str += "a"
-	}
-	return str
-}
+func TestTitle(t *testing.T) {
 
-func TestBookModel(t *testing.T) {
+	makeLongString := func(howLong int) string {
+		str := ""
+		for i := 0; i < howLong; i++ {
+			str += "a"
+		}
+		return str
+	}
 
 	t.Run("testing title", func(t *testing.T) {
 		casesTitle := map[string]error{
@@ -38,5 +38,4 @@ func TestBookModel(t *testing.T) {
 			}
 		}
 	})
-
 }

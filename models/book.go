@@ -45,9 +45,8 @@ func (b *Book) validate() error {
 	if len(b.Title) < 2 {
 		return ErrTitleIsShort
 	}
-	if len(b.Title) > 2 {
+	if len(b.Title) > 255 {
 		return ErrTitleIsLong
 	}
-
 	return nil
 }
