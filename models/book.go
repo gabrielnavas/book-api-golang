@@ -8,8 +8,9 @@ import (
 )
 
 var (
-	ErrTitleIsShort = errors.New("title must be more than 2 or more characters")
-	ErrTitleIsLong  = errors.New("title must be less than 255 characters")
+	ErrTitleIsShort                    = errors.New("title must be more than 2 or more characters")
+	ErrTitleIsLong                     = errors.New("title must be less than 255 characters")
+	ErrIsbnDoesNotHaveCharactersEnoght = errors.New("isbn is not 13 characters long")
 )
 
 type Book struct {
@@ -48,5 +49,9 @@ func (b *Book) validate() error {
 	if len(b.Title) > 255 {
 		return ErrTitleIsLong
 	}
+	if len(b.Isbn) != 13 {
+		return ErrIsbnDoesNotHaveCharactersEnoght
+	}
+
 	return nil
 }

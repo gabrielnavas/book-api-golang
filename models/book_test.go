@@ -39,3 +39,28 @@ func TestTitle(t *testing.T) {
 		}
 	})
 }
+
+func TestIsbn(t *testing.T) {
+	t.Run("testing isbn", func(t *testing.T) {
+		casesIsbn := map[string]error{
+			"":               models.ErrIsbnDoesNotHaveCharactersEnoght,
+			"123456789123":   models.ErrIsbnDoesNotHaveCharactersEnoght,
+			"1231231231234":  nil,
+			"12312312312345": models.ErrIsbnDoesNotHaveCharactersEnoght,
+		}
+
+		for isbn, want := range casesIsbn {
+			_, got := models.NewBook(
+				"any_title",
+				isbn,
+				500,
+				"any publishing place",
+				"any publishing company",
+				time.Now().UTC(),
+			)
+			if got != want {
+				t.Errorf("got '%s', want: '%s'\n", got, want)
+			}
+		}
+	})
+}
