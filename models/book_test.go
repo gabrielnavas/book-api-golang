@@ -29,7 +29,6 @@ func TestTitle(t *testing.T) {
 				title,
 				"any_isbn_12345",
 				500,
-				"any publishing place",
 				"any publishing company",
 				time.Now().UTC(),
 			)
@@ -54,7 +53,6 @@ func TestIsbn(t *testing.T) {
 				"any_title",
 				isbn,
 				500,
-				"any publishing place",
 				"any publishing company",
 				time.Now().UTC(),
 			)
@@ -77,7 +75,6 @@ func TestPagesOfNumber(t *testing.T) {
 				"any_title",
 				"1234567891234",
 				numberOfPage,
-				"any publishing place",
 				"any publishing company",
 				time.Now().UTC(),
 			)
@@ -109,7 +106,6 @@ func TestPublishingCompany(t *testing.T) {
 				"any_title",
 				"1234567891234",
 				500,
-				"any publishing place",
 				publishingCompany,
 				time.Now().UTC(),
 			)

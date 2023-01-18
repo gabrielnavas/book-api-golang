@@ -21,7 +21,6 @@ type Book struct {
 	Title             string
 	Isbn              string
 	NumberOfPages     int
-	PublishingPlace   string
 	PublishingCompany string
 	YearOfEdition     time.Time
 }
@@ -30,7 +29,6 @@ func NewBook(
 	title string,
 	isbn string,
 	numberOfPages int,
-	publishingPlace string,
 	publishingCompany string,
 	yearOfEdition time.Time,
 ) (*Book, error) {
