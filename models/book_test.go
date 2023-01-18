@@ -17,14 +17,14 @@ func TestTitle(t *testing.T) {
 	}
 
 	t.Run("testing title", func(t *testing.T) {
-		casesTitle := map[string]error{
+		cases := map[string]error{
 			"a":                 models.ErrTitleIsShort,
 			"":                  models.ErrTitleIsShort,
 			makeLongString(256): models.ErrTitleIsLong,
 			"ab":                nil,
 		}
 
-		for title, want := range casesTitle {
+		for title, want := range cases {
 			_, got := models.NewBook(
 				title,
 				"any_isbn_12345",
@@ -42,14 +42,14 @@ func TestTitle(t *testing.T) {
 
 func TestIsbn(t *testing.T) {
 	t.Run("testing isbn", func(t *testing.T) {
-		casesIsbn := map[string]error{
+		cases := map[string]error{
 			"":               models.ErrIsbnDoesNotHaveCharactersEnoght,
 			"123456789123":   models.ErrIsbnDoesNotHaveCharactersEnoght,
 			"1231231231234":  nil,
 			"12312312312345": models.ErrIsbnDoesNotHaveCharactersEnoght,
 		}
 
-		for isbn, want := range casesIsbn {
+		for isbn, want := range cases {
 			_, got := models.NewBook(
 				"any_title",
 				isbn,
@@ -66,19 +66,51 @@ func TestIsbn(t *testing.T) {
 }
 
 func TestPagesOfNumber(t *testing.T) {
-	t.Run("testing isbn", func(t *testing.T) {
-		casesIsbn := map[int]error{
+	t.Run("testing pages of number", func(t *testing.T) {
+		cases := map[int]error{
 			0: models.ErrPageOfNumberMustBePositive,
 			1: nil,
 		}
 
-		for numberOfPage, want := range casesIsbn {
+		for numberOfPage, want := range cases {
 			_, got := models.NewBook(
 				"any_title",
 				"1234567891234",
 				numberOfPage,
 				"any publishing place",
 				"any publishing company",
+				time.Now().UTC(),
+			)
+			if got != want {
+				t.Errorf("got '%s', want: '%s'\n", got, want)
+			}
+		}
+	})
+}
+
+func TestPublishingCompany(t *testing.T) {
+	makeLongString := func(howLong int) string {
+		str := ""
+		for i := 0; i < howLong; i++ {
+			str += "a"
+		}
+		return str
+	}
+
+	t.Run("testing publishing company", func(t *testing.T) {
+		cases := map[string]error{
+			"a":                 models.ErrPublishingCompanyIsShort,
+			"abc":               nil,
+			makeLongString(256): models.ErrPublishingCompanyIsLong,
+		}
+
+		for publishingCompany, want := range cases {
+			_, got := models.NewBook(
+				"any_title",
+				"1234567891234",
+				500,
+				"any publishing place",
+				publishingCompany,
 				time.Now().UTC(),
 			)
 			if got != want {
