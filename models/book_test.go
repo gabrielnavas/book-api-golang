@@ -64,3 +64,26 @@ func TestIsbn(t *testing.T) {
 		}
 	})
 }
+
+func TestPagesOfNumber(t *testing.T) {
+	t.Run("testing isbn", func(t *testing.T) {
+		casesIsbn := map[int]error{
+			0: models.ErrPageOfNumberMustBePositive,
+			1: nil,
+		}
+
+		for numberOfPage, want := range casesIsbn {
+			_, got := models.NewBook(
+				"any_title",
+				"1234567891234",
+				numberOfPage,
+				"any publishing place",
+				"any publishing company",
+				time.Now().UTC(),
+			)
+			if got != want {
+				t.Errorf("got '%s', want: '%s'\n", got, want)
+			}
+		}
+	})
+}

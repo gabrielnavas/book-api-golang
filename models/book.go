@@ -11,6 +11,7 @@ var (
 	ErrTitleIsShort                    = errors.New("title must be more than 2 or more characters")
 	ErrTitleIsLong                     = errors.New("title must be less than 255 characters")
 	ErrIsbnDoesNotHaveCharactersEnoght = errors.New("isbn is not 13 characters long")
+	ErrPageOfNumberMustBePositive      = errors.New("the book must have at least one page")
 )
 
 type Book struct {
@@ -51,6 +52,10 @@ func (b *Book) validate() error {
 	}
 	if len(b.Isbn) != 13 {
 		return ErrIsbnDoesNotHaveCharactersEnoght
+	}
+	if b.NumberOfPages <= 0 {
+		return ErrPageOfNumberMustBePositive
+
 	}
 
 	return nil
